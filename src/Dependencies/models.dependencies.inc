@@ -6,7 +6,8 @@
  * @license   [[LICENSE_URL]] ([[LICENSE]])
  *------------------------------------------------------------- *)
 
-{$INCLUDE main.dependencies.inc}
-{$INCLUDE models.dependencies.inc}
-{$INCLUDE views.dependencies.inc}
-{$INCLUDE controllers.dependencies.inc}
+{%dependencies.inc}
+
+{---put your dependencies registration here---}
+
+container.add('user.list', TUserModelFactory.create());

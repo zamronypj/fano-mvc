@@ -19,7 +19,7 @@ type
      *
      * @author [[AUTHOR_NAME]] <[[AUTHOR_EMAIL]]>
      *------------------------------------------------*)
-    TUserControllerFactory = class(TFactory, IDependencyFactory)
+    TUserControllerFactory = class(TFactory)
     public
         function build(const container : IDependencyContainer) : IDependency; override;
     end;
@@ -27,7 +27,6 @@ type
 implementation
 
 uses
-    sysutils,
 
     {*! -------------------------------
         unit interfaces
@@ -41,7 +40,10 @@ uses
         try
             result := TUserController.create(
                 routeMiddlewares.getBefore(),
-                routeMiddlewares.getAfter()
+                routeMiddlewares.getAfter(),
+                container.get('userListingView') as IView,
+                container.get('viewParams') as IViewParameters,
+                container.get('user.list') as IModelReader
             );
         finally
             routeMiddlewares := nil;
